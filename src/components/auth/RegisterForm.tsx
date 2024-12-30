@@ -1,36 +1,21 @@
 import { useState } from 'react';
-import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Card } from '../ui/card';
-import { useToast } from '../../hooks/use-toast';
-import * as api from '../../lib/api';
 import { Mail, Lock, User } from 'lucide-react';
+import useAuthController from '../../controllers/auth/AuthController';
 
 export function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
-  const { toast } = useToast();
+
+  const { handleRegister } = useAuthController();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const { token, user } = await api.register(email, password, name);
-      login(token, user);
-    } catch {
-      toast({
-        title: 'Error',
-        description: 'Failed to create account',
-        variant: 'destructive',
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    handleRegister(email, password, name, setIsLoading);
   };
 
   return (
