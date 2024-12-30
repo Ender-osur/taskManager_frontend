@@ -28,6 +28,11 @@ export const getTasks = async (filter?: string) => {
   return response.data;
 };
 
+export const getOneTask = async (id: string) => {
+  const response = await api.get(`/task/${id}`);
+  return response.data;
+};
+
 export const createTask = async (title: string) => {
   const response = await api.post('/task', { title });
   return response.data;
