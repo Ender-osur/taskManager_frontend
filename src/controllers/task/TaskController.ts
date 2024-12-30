@@ -3,7 +3,7 @@ import { useToast } from "../../hooks/use-toast";
 import * as api from "../../lib/api";
 
 const useAuthController = () => {
-  const { login, register } = useAuth();
+  const { login } = useAuth();
   const { toast } = useToast();
 
   const handleLogin = async (
